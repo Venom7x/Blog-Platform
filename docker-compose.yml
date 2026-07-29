@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: blog-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blog_platform
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: blog-app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: blog_platform
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      JWT_SECRET: ZmFrZS1zdXBlci1sb25nLXNlY3JldC1rZXktZm9yLWp3dC1obWFjLXNoYTI1Ni1hbGdvcml0aG0tY2hhbmdlLW1lLWluLXByb2R1Y3Rpb24=
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql-data:

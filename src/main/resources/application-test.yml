@@ -1,0 +1,16 @@
+# Optional profile for running against in-memory H2 (no MySQL needed) - useful for quick local testing.
+# Activate with: mvn spring-boot:run -Dspring-boot.run.profiles=test
+spring:
+  datasource:
+    url: jdbc:h2:mem:blogdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
