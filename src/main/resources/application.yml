@@ -10,6 +10,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://mysql-9232921-blog-platform.l.aivencloud.com:12277/blog_platform?sslMode=REQUIRED
+    username: ${username}
+    password: ${password}
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10
