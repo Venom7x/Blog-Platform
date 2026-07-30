@@ -16,14 +16,13 @@ spring:
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
-      idle-timeout: 600000      # 10 minutes (up from 30 seconds)
-      max-lifetime: 1800000     # 30 minutes (forces graceful reconnects)
-      connection-timeout: 10000 # 10 seconds is plenty
-
+      idle-timeout: 30000
+      connection-timeout: 30000
 
   jpa:
     hibernate:
       ddl-auto: validate
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
